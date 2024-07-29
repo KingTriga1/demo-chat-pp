@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS catalogs;
+Drop TABLE IF EXISTS products;
+
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+    );
+
+CREATE TABLE catalogs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    author_id INTEGER NOT NULL,
+    name TEXT UNIQUE NOT NULL,
+    description TEXT NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES user (id),
+    ON DELETE CASCADE ON UPDATE CASCADE
+    );
+
+CREATE TABLE products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    catalog_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT NULL,
+    price INTEGER NOT NULL,
+    FOREIGN KEY (catalog_id) REFERENCES catalogs (id),
+    ON DELETE CASCADE ON UPDATE CASCADE
+    );
